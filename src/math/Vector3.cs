@@ -135,7 +135,12 @@ namespace RayTracer
         {
             // Write your code here...
             // return new Vector3(0, 0, 0);
-            return new Vector3(0, 0, 0);
+            // return new Vector3(0, 0, 0);
+            return new Vector3(
+                a.x - b.x,
+                a.y - b.y,
+                a.z - b.y
+            );
         }
 
         /// <summary>
@@ -147,7 +152,13 @@ namespace RayTracer
         public static Vector3 operator *(Vector3 a, double b)
         {
             // Write your code here...
-            return new Vector3(0, 0, 0);
+            // return new Vector3(0, 0, 0);
+            return new Vector3(
+                a.x * b,
+                a.y * b,
+                a.z * b
+            );
+            
         }
 
         /// <summary>
@@ -159,7 +170,12 @@ namespace RayTracer
         public static Vector3 operator *(double b, Vector3 a)
         {
             // Write your code here...
-            return new Vector3(0, 0, 0);
+            // return new Vector3(0, 0, 0);
+            return new Vector3(
+                a.x * b,
+                a.y * b,
+                a.z * b
+            );
         }
 
         /// <summary>
@@ -171,7 +187,13 @@ namespace RayTracer
         public static Vector3 operator /(Vector3 a, double b)
         {
             // Write your code here...
-            return new Vector3(0, 0, 0);
+            // return new Vector3(0, 0, 0);
+            return new Vector3(
+                a.x / b,
+                a.y / b,
+                a.z / b
+            );
+            
         }
 
         /// <summary>
