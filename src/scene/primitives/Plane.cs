@@ -35,7 +35,9 @@ namespace RayTracer
             double t = 0;
             double denominator = ray.Direction.Dot(normal);
             Vector3 p010 = new Vector3(0, 0, 0);
-            if (denominator > 1e-6) {
+            
+            // FIX THIS LATER
+            if (denominator < double.Epsilon) {
                 // Vector from origin to a point
                 Vector3 p0l0 = center - ray.Origin;
                 t = p010.Dot(normal) / denominator;
@@ -43,7 +45,6 @@ namespace RayTracer
                 // Intersection
                 if (t >= 0) 
                 {
-
                     Vector3 intersection = ray.Origin + ray.Direction * t;
 
                     // Calculate the normal to the point of intersection

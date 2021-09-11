@@ -58,25 +58,25 @@ namespace RayTracer
                 }
 
                 // Return null if sphere is behind the ray
-                // if (t < 0) 
-                // {
-                //     Console.WriteLine(t);
-                //     return null;
-                // }
-                // else 
-                // {
-                Vector3 intersection = ray.Origin + ray.Direction * t;
+                if (t < 0) 
+                {
+                    Console.WriteLine(t);
+                    return null;
+                }
+                else 
+                {
+                    Vector3 intersection = ray.Origin + ray.Direction * t;
 
-                // Calculate the normal to the point of intersection
+                    // Calculate the normal to the point of intersection
 
-                Vector3 normalHit = (intersection - center).Normalized();
+                    Vector3 normalHit = (intersection - center).Normalized();
 
-                // Calculates the incident ray
-                Vector3 incidentRay = ray.Origin + ray.Direction;
+                    // Calculates the incident ray
+                    Vector3 incidentRay = ray.Origin + ray.Direction;
 
-                return new RayHit(intersection, normalHit, incidentRay, material
-                );
-                // }
+                    return new RayHit(intersection, normalHit, incidentRay, material
+                    );
+                }
             }
 
             // Ray intersects the sphere in one point (tangent)

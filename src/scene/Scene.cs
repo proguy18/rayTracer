@@ -114,6 +114,7 @@ namespace RayTracer
                         }
                     }
 
+
                     // RayHit rayHit1 = plane.Intersect(ray);
 
                     // if(rayHit1 != null) {
@@ -142,10 +143,10 @@ namespace RayTracer
 
                 }
             }
-            double Testx = (2 * ((0 + 0.5) / outputImage.Width) - 1) * (Math.Tan(fov / 2 * Math.PI / 180)); 
-            double Testy = (1 - 2 * ((0 + 0.5) / outputImage.Height)) * (Math.Tan(fov / 2 * Math.PI / 180));
-            Console.WriteLine("Testx = " + Testx + " Testy = " + Testy);
-            Console.WriteLine(Math.Tan(fov / 2 * Math.PI / 180));
+            // double Testx = (2 * ((0 + 0.5) / outputImage.Width) - 1) * (Math.Tan(fov / 2 * Math.PI / 180)); 
+            // double Testy = (1 - 2 * ((0 + 0.5) / outputImage.Height)) * (Math.Tan(fov / 2 * Math.PI / 180));
+            // Console.WriteLine("Testx = " + Testx + " Testy = " + Testy);
+            // Console.WriteLine(Math.Tan(fov / 2 * Math.PI / 180));
             // Begin writing your code here...
             // Vector3 a = new Vector3(1, 1, 1);
             // Vector3 b = new Vector3(1, 1, 100);
