@@ -32,7 +32,69 @@ namespace RayTracer
         public RayHit Intersect(Ray ray)
         {
             // Write your code here...
-            return null;
+            Vector3 co = ray.Origin - center;
+
+            // Calculates discriminant
+            double a = ray.Direction.Dot(ray.Direction);
+            double b = 2 * ray.Direction.Dot(co);
+            double c = co.Dot(co) - radius * radius;
+            double discriminant = b * b - 4 * a * c;
+
+            // Ray intersects the sphere in two points
+            if (discriminant > 0) {
+                // Calculate t using quadratic formula
+                double t1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
+                double t2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
+
+                double t;
+
+                // Uses the smaller t
+                if(t1 > t2) {
+                    t = t2;
+                }
+                else 
+                {
+                    t = t1;
+                }
+
+                Vector3 intersection = ray.Origin + ray.Direction * t;
+
+                // Calculate the normal to the point of intersection
+
+                Vector3 normalHit1 = (intersection - center).Normalized();
+
+                // Calculates the incident ray
+                Vector3 incidentRay = ray.Origin + ray.Direction;
+
+                return new RayHit(intersection, normalHit1, incidentRay, material
+
+                );
+
+            }
+
+            // Ray intersects the sphere in one point (tangent)
+            else if (discriminant == 0) {
+                // Calculate t using quadratic formula
+                double t = (-b) / (2 * a);
+
+                Vector3 intersection = ray.Origin + ray.Direction * t;
+
+                // Calculate the normal to the point of intersection
+
+                Vector3 normalHit = (intersection - center).Normalized();
+
+                // Calculates the incident ray
+                Vector3 incidentRay = ray.Origin + ray.Direction;
+                return new RayHit(intersection, normalHit, incidentRay, material
+                );
+
+            }
+
+            // Ray does not intersect the sphere
+            else {
+                return null;
+            }
+            // return null;
         }
 
         /// <summary>
