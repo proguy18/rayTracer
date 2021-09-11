@@ -3,10 +3,10 @@ This is your README.md... you should write anything relevant to your implementat
 
 Please ensure your student details are specified below (*exactly* as on UniMelb records):
 
-**Name:** ... \
-**Student Number:** XXXXXXX \
-**Username:** ... \
-**Email:** ...@student.unimelb.edu.au
+**Name:** Joseph Matthew Leonardi \
+**Student Number:** 1025351 \
+**Username:** jleonardi \
+**Email:** jleonardi@student.unimelb.edu.au
 
 ## Completed stages
 
@@ -19,7 +19,7 @@ Tip: To tick, place an x between the square brackes [ ], like so: [x]
 ##### Stage 1
 
 - [x] Stage 1.1 - Familiarise yourself with the template
-- [ ] Stage 1.2 - Implement vector mathematics
+- [x] Stage 1.2 - Implement vector mathematics
 - [ ] Stage 1.3 - Fire a ray for each pixel
 - [ ] Stage 1.4 - Calculate ray-entity intersections
 - [ ] Stage 1.5 - Output primitives as solid colours
