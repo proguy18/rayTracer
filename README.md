@@ -20,9 +20,9 @@ Tip: To tick, place an x between the square brackes [ ], like so: [x]
 
 - [x] Stage 1.1 - Familiarise yourself with the template
 - [x] Stage 1.2 - Implement vector mathematics
-- [ ] Stage 1.3 - Fire a ray for each pixel
-- [ ] Stage 1.4 - Calculate ray-entity intersections
-- [ ] Stage 1.5 - Output primitives as solid colours
+- [x] Stage 1.3 - Fire a ray for each pixel
+- [x] Stage 1.4 - Calculate ray-entity intersections
+- [] Stage 1.5 - Output primitives as solid colours
 
 ##### Stage 2
 
@@ -98,3 +98,18 @@ Great walkthrough of some of the basic maths: https://blog.scottlogic.com/2020/0
 
 Scratchapixel: intro to ray tracing: https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing/how-does-it-work
 
+https://www.youtube.com/watch?v=GrUJO2hJp7w
+
+https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-generating-camera-rays/generating-camera-rays
+
+https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
+
+https://viclw17.github.io/2018/07/16/raytracing-ray-sphere-intersection/
+
+https://en.m.wikipedia.org/wiki/Line%E2%80%93sphere_intersection
+
+https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection
+
+https://stackoverflow.com/questions/23975555/how-to-do-ray-plane-intersection
+
+https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/ray-triangle-intersection-geometric-solution
