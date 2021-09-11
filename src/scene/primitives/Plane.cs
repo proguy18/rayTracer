@@ -32,6 +32,35 @@ namespace RayTracer
         public RayHit Intersect(Ray ray)
         {
             // Write your code here...
+            double t = 0;
+            double denominator = ray.Direction.Dot(normal);
+            Vector3 p010 = new Vector3(0, 0, 0);
+            if (denominator > 1e-6) {
+                // Vector from origin to a point
+                Vector3 p0l0 = center - ray.Origin;
+                t = p010.Dot(normal) / denominator;
+
+                // Intersection
+                if (t >= 0) 
+                {
+
+                    Vector3 intersection = ray.Origin + ray.Direction * t;
+
+                    // Calculate the normal to the point of intersection
+                    Vector3 normalHit = (intersection + normal).Normalized();
+
+                    // Calculates the incident ray
+                    Vector3 incidentRay = ray.Origin + ray.Direction;
+
+                    return new RayHit(intersection, normalHit, incidentRay, material);
+                }
+                // Intersection behind the ray
+                else 
+                {
+                    return null;
+                }
+            }
+
             return null;
         }
 
