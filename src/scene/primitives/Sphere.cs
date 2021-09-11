@@ -57,19 +57,25 @@ namespace RayTracer
                     t = t1;
                 }
 
-                Vector3 intersection = ray.Origin + ray.Direction * t;
+                // Return null if sphere is behind the ray
+                if (t < 0) 
+                {
+                    return null;
+                }
+                else 
+                {
+                    Vector3 intersection = ray.Origin + ray.Direction * t;
 
-                // Calculate the normal to the point of intersection
+                    // Calculate the normal to the point of intersection
 
-                Vector3 normalHit1 = (intersection - center).Normalized();
+                    Vector3 normalHit = (intersection - center).Normalized();
 
-                // Calculates the incident ray
-                Vector3 incidentRay = ray.Origin + ray.Direction;
+                    // Calculates the incident ray
+                    Vector3 incidentRay = ray.Origin + ray.Direction;
 
-                return new RayHit(intersection, normalHit1, incidentRay, material
-
-                );
-
+                    return new RayHit(intersection, normalHit, incidentRay, material
+                    );
+                }
             }
 
             // Ray intersects the sphere in one point (tangent)
@@ -77,16 +83,25 @@ namespace RayTracer
                 // Calculate t using quadratic formula
                 double t = (-b) / (2 * a);
 
-                Vector3 intersection = ray.Origin + ray.Direction * t;
+                // Return null if sphere is behind the ray
+                if (t < 0) 
+                {
+                    return null;
+                }
+                else 
+                {
+                    Vector3 intersection = ray.Origin + ray.Direction * t;
 
-                // Calculate the normal to the point of intersection
+                    // Calculate the normal to the point of intersection
 
-                Vector3 normalHit = (intersection - center).Normalized();
+                    Vector3 normalHit = (intersection - center).Normalized();
 
-                // Calculates the incident ray
-                Vector3 incidentRay = ray.Origin + ray.Direction;
-                return new RayHit(intersection, normalHit, incidentRay, material
-                );
+                    // Calculates the incident ray
+                    Vector3 incidentRay = ray.Origin + ray.Direction;
+
+                    return new RayHit(intersection, normalHit, incidentRay, material
+                    );
+                }
 
             }
 
