@@ -112,4 +112,6 @@ https://stackoverflow.com/questions/23975555/how-to-do-ray-plane-intersection
 
 https://stackoverflow.com/questions/42740765/intersection-between-line-and-triangle-in-3d
 
+http://web.cse.ohio-state.edu/~shen.94/681/Site/Slides_files/reflection_refraction.pdf
+
 

@@ -60,7 +60,6 @@ namespace RayTracer
                 // Return null if sphere is behind the ray
                 if (t < 0) 
                 {
-                    Console.WriteLine(t);
                     return null;
                 }
                 else 
