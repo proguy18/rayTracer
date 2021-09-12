@@ -43,10 +43,11 @@ namespace RayTracer
             }
 
             // compute d parameter using equation 2
-            double d = normal.Dot(center); 
+            // double d = normal.Dot(center); 
+            p010 = center - ray.Origin;
         
             // compute t (equation 3)
-            t = (normal.Dot(ray.Origin) + d) / denominator; 
+            t = (normal.Dot(p010)) / denominator; 
             // check if the triangle is in behind the ray
             if (t < 0) {
                 return null;
@@ -61,38 +62,6 @@ namespace RayTracer
             Vector3 incidentRay = ray.Origin + ray.Direction;
 
             return new RayHit(intersection, normalHit, incidentRay, material);
-            // // Write your code here...
-            // double t = 0;
-            // double denominator = ray.Direction.Dot(normal);
-            // Vector3 p010 = new Vector3(0, 0, 0);
-            
-            // // FIX THIS LATER
-            // if (denominator < double.Epsilon) {
-            //     // Vector from origin to a point
-            //     Vector3 p0l0 = center - ray.Origin;
-            //     t = p010.Dot(normal) / denominator;
-
-            //     // Intersection
-            //     if (t >= 0) 
-            //     {
-            //         Vector3 intersection = ray.Origin + ray.Direction * t;
-
-            //         // Calculate the normal to the point of intersection
-            //         Vector3 normalHit = (intersection + normal).Normalized();
-
-            //         // Calculates the incident ray
-            //         Vector3 incidentRay = ray.Origin + ray.Direction;
-
-            //         return new RayHit(intersection, normalHit, incidentRay, material);
-            //     }
-            //     // Intersection behind the ray
-            //     else 
-            //     {
-            //         return null;
-            //     }
-            // }
-
-            // return null;
         }
 
         /// <summary>
