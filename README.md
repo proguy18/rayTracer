@@ -108,8 +108,8 @@ https://viclw17.github.io/2018/07/16/raytracing-ray-sphere-intersection/
 
 https://en.m.wikipedia.org/wiki/Line%E2%80%93sphere_intersection
 
-https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection
-
 https://stackoverflow.com/questions/23975555/how-to-do-ray-plane-intersection
 
-https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/ray-triangle-intersection-geometric-solution
+https://stackoverflow.com/questions/42740765/intersection-between-line-and-triangle-in-3d
+
+
