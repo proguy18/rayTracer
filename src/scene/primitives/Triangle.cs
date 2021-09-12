@@ -46,10 +46,11 @@ namespace RayTracer
             Vector3 AO  = ray.Origin - v0;
             Vector3 DAO = AO.Cross(ray.Direction);
             double u =  side1.Dot(DAO) * invdet;
-            double v = -side0.Dot(DAO) * invdet;
+            double v = -(side0.Dot(DAO)) * invdet;
             double t =  AO.Dot(normal)  * invdet; 
-            if(det >= double.Epsilon && t >= 0.0 && u >= 0.0 && v >= 0.0 && (u+v) <= 1.0) {
-                Vector3 intersection = ray.Origin + ray.Direction * t;
+            if(Math.Abs(det) >= double.Epsilon && t >= 0.0 && u >= 0.0 && v >= 0.0 && (u+v) <= 1.0) {
+
+                Vector3 intersection = ray.Origin + (ray.Direction * t);
 
                 // Calculate the normal to the point of intersection
                 Vector3 normalHit = (intersection + normal).Normalized();
@@ -58,6 +59,7 @@ namespace RayTracer
                 Vector3 incidentRay = ray.Origin + ray.Direction;
 
                 return new RayHit(intersection, normalHit, incidentRay, material);
+                
             }
             return null;
         }
