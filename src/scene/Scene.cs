@@ -62,16 +62,16 @@ namespace RayTracer
                     Vector3 rayDirection = new Vector3(Px, Py, 1) - cameraPos; // note that this just equal to Vector3(Px, Py, 1); 
                     rayDirection = rayDirection.Normalized(); // it's a direction so don't forget to normalize 
                     Ray ray = new Ray(cameraPos, rayDirection);
-                    SceneEntity closestEntity = null;
 
                     foreach (SceneEntity entity in this.entities) {
+                        SceneEntity closestEntity = null;
                         RayHit hit = entity.Intersect(ray);
                         // There is an intersection
                         if (hit != null)
                         {
                             Vector3 closestPos = entity.Intersect(ray).Position; 
 
-                            // Finds which object is closer to the camera
+                            // Finds which object is closer to the camera visual studio 2017 or 2019
                             foreach (SceneEntity entityTie in this.entities) {
                                 RayHit tie = entityTie.Intersect(ray);
 
@@ -81,21 +81,49 @@ namespace RayTracer
                                     {
                                         closestPos = entityTie.Intersect(ray).Position;
                                         closestEntity = entityTie;
+                                        // break;
                                     }
+                                }
+                                else {
+                                    closestEntity = entity;
                                 }          
                             }
                             
                             // Renders the closest object
-                            if(closestEntity != null) {
-                                outputImage.SetPixel(w, h, closestEntity.Material.Color);
-                                closestEntity = null;
-                                break;
+                            RayHit intersected = closestEntity.Intersect(ray);
+                            Color finalColour = new Color(0, 0, 0);
+                            if(closestEntity.Material.Type.ToString() == "Diffuse") {
+                                {
+                                    foreach (PointLight pointLight in this.lights) {
+                                        Color colourVector = new Color(0, 0 ,0);
+                                        Vector3 l = (pointLight.Position - intersected.Position).Normalized();
+                                        Vector3 n = intersected.Normal;
+                                        Vector3 offset = 0.05*l;
+                                        Ray shadow = new Ray(intersected.Position + offset, l);
+
+                                        // Checks if the shadow ray intersects other objects
+                                        foreach (SceneEntity entity1 in this.entities) {
+                                            colourVector = (closestEntity.Material.Color * pointLight.Color) * Math.Abs(n.Dot(l));
+                                            if(entity1.Intersect(shadow) == null) {
+                                                // colourVector = (closestEntity.Material.Color * pointLight.Color) * Math.Abs(n.Dot(l));
+                                            }
+                                            else {
+                                                // if(entity1.GetType().ToString() == "RayTracer.Triangle") {
+                                                //     Console.WriteLine("TRIANGLE");
+                                                // }
+                                                // colourVector = new Color(0,0,0);
+                                                // break;
+                                            }
+                                        }
+                                        finalColour += colourVector;
+                                    }   
+                                    // outputImage.SetPixel(w, h, colourVector);
+                                    // closestEntity = null;
+                                    // break;
+                                }
                             }
-                            // Renders the only object that intersects the ray
-                            else {
-                                outputImage.SetPixel(w, h, entity.Material.Color);
-                                break;
-                            }    
+                            outputImage.SetPixel(w, h, finalColour);
+                            // break;
                         }
                     }
                 }

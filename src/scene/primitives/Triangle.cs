@@ -48,7 +48,7 @@ namespace RayTracer
             double u =  side1.Dot(DAO) * invdet;
             double v = -(side0.Dot(DAO)) * invdet;
             double t =  AO.Dot(normal)  * invdet; 
-            if(Math.Abs(det) >= double.Epsilon && t >= 0.0 && u >= 0.0 && v >= 0.0 && (u+v) <= 1.0) {
+            if(Math.Abs(det) >= double.Epsilon && t > 0.0 && u >= 0.0 && v >= 0.0 && (u+v) <= 1.0) {
 
                 Vector3 intersection = ray.Origin + (ray.Direction * t);
 
