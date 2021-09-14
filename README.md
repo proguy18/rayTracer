@@ -26,8 +26,8 @@ Tip: To tick, place an x between the square brackes [ ], like so: [x]
 
 ##### Stage 2
 
-- [ ] Stage 2.1 - Diffuse materials
-- [ ] Stage 2.2 - Shadow rays
+- [x] Stage 2.1 - Diffuse materials
+- [x] Stage 2.2 - Shadow rays
 - [ ] Stage 2.3 - Reflective materials
 - [ ] Stage 2.4 - Refractive materials
 - [ ] Stage 2.5 - The Fresnel effect
@@ -113,5 +113,7 @@ https://stackoverflow.com/questions/23975555/how-to-do-ray-plane-intersection
 https://stackoverflow.com/questions/42740765/intersection-between-line-and-triangle-in-3d
 
 http://web.cse.ohio-state.edu/~shen.94/681/Site/Slides_files/reflection_refraction.pdf
+
+https://github.dev/NullSense/Tracey/blob/master/src/main.cpp
 
 

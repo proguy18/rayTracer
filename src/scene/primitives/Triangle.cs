@@ -58,7 +58,9 @@ namespace RayTracer
                 // Calculates the incident ray
                 Vector3 incidentRay = ray.Origin + ray.Direction;
 
-                return new RayHit(intersection, normalHit, incidentRay, material);
+
+
+                return new RayHit(intersection, normalHit, incidentRay, material, t);
                 
             }
             return null;
