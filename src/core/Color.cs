@@ -9,6 +9,8 @@ namespace RayTracer
     {
         private readonly double r, g, b;
 
+        public static readonly Color Black = new Color(0, 0, 0);
+
         /// <summary>
         /// Construct a new color structure given red, green, blue
         /// components (0-1 ranges).
@@ -100,6 +102,33 @@ namespace RayTracer
         public static Color operator +(Color a, Color b)
         {
             return new Color(a.r + b.r, a.g + b.g, a.b + b.b);
+        }
+
+        /// <summary>
+        /// Adjusts colours to not exceed limit
+        /// </summary>
+        /// <returns>Clamped colour</returns>
+        
+        public Color Clamp()
+        {
+            double red = r;
+            double green = g; 
+            double blue= b;
+
+            if(red > 1)
+                red = 1;
+            if(green > 1) 
+                green = 1;
+            if(blue > 1) 
+                blue = 1;
+            if(red < 0)
+                red = 0;
+            if(green < 0) 
+                green = 0;
+            if(blue < 0) 
+                blue = 0;
+
+            return new Color(red, green, blue);
         }
     }
 }
