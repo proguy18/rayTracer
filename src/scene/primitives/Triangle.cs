@@ -30,40 +30,78 @@ namespace RayTracer
         /// </summary>
         /// <param name="ray">Ray to check</param>
         /// <returns>Hit data (or null if no intersection)</returns>
+        // public RayHit Intersect(Ray ray)
+        // {
+        //     // Write your code here...
+
+        //     // Obtain variables for the plane which the triangle resides in
+        //     Vector3 side0 = v1 - v0;
+        //     Vector3 side1 = v2 - v0;
+
+        //     // Normal of the plane
+        //     Vector3 normal = side0.Cross(side1);
+
+        //     double det = -ray.Direction.Dot(normal);
+        //     double invdet = 1.0/det;
+        //     Vector3 AO  = ray.Origin - v0;
+        //     Vector3 DAO = AO.Cross(ray.Direction);
+        //     double u =  side1.Dot(DAO) * invdet;
+        //     double v = -(side0.Dot(DAO)) * invdet;
+        //     double t =  AO.Dot(normal)  * invdet; 
+        //     if(Math.Abs(det) >= double.Epsilon && t > 0.0 && u >= 0.0 && v >= 0.0 && (u+v) <= 1.0) {
+
+        //         Vector3 intersection = ray.Origin + (ray.Direction * t);
+
+        //         // Calculate the normal to the point of intersection
+        //         Vector3 normalHit = (intersection + normal).Normalized();
+
+        //         // Calculates the incident ray
+        //         //Vector3 incidentRay = ray.Origin + ray.Direction;
+        //         Vector3 incidentRay = ray.Direction;
+
+
+        //         return new RayHit(intersection, normalHit, incidentRay, material, t);
+                
+        //     }
+        //     return null;
+        // }
+
         public RayHit Intersect(Ray ray)
         {
-            // Write your code here...
+            Vector3 v0v1 = v1 - v0;
+            Vector3 v0v2 = v2 - v0;
+            Vector3 n = v0v1.Cross(v0v2);
+            double nDotRayDirection = n.Dot(ray.Direction);
+            if (Math.Abs(nDotRayDirection) < Utils.Epsilon) // almost 0 
+                return null; // they are parallel so they don't intersect ! 
+            Vector3 originv0 = v0 - ray.Origin;
+            double t = (n.Dot(originv0)) / nDotRayDirection;
+            if (t <= 0) return null; // the triangle is behind 
+            Vector3 p = ray.Origin + t * ray.Direction;
+            
+            // edge 0
+            Vector3 edge0 = v1 - v0;
+            Vector3 vp0 = p - v0;
+            Vector3 c = edge0.Cross(vp0);
+            if (n.Dot(c) < 0) return null;
 
-            // Obtain variables for the plane which the triangle resides in
-            Vector3 side0 = v1 - v0;
-            Vector3 side1 = v2 - v0;
+            // edge 1
+            Vector3 edge1 = v2 - v1;
+            Vector3 vp1 = p - v1;
+            c = edge1.Cross(vp1);
+            double u = n.Dot(c);
+            if ((u < 0)) return null;
 
-            // Normal of the plane
-            Vector3 normal = side0.Cross(side1);
-
-            double det = -ray.Direction.Dot(normal);
-            double invdet = 1.0/det;
-            Vector3 AO  = ray.Origin - v0;
-            Vector3 DAO = AO.Cross(ray.Direction);
-            double u =  side1.Dot(DAO) * invdet;
-            double v = -(side0.Dot(DAO)) * invdet;
-            double t =  AO.Dot(normal)  * invdet; 
-            if(Math.Abs(det) >= double.Epsilon && t > 0.0 && u >= 0.0 && v >= 0.0 && (u+v) <= 1.0) {
-
-                Vector3 intersection = ray.Origin + (ray.Direction * t);
-
-                // Calculate the normal to the point of intersection
-                Vector3 normalHit = (intersection + normal).Normalized();
-
-                // Calculates the incident ray
-                Vector3 incidentRay = ray.Origin + ray.Direction;
-
-
-
-                return new RayHit(intersection, normalHit, incidentRay, material, t);
-                
-            }
-            return null;
+            // edge 2
+            Vector3 edge2 = v0 - v2;
+            Vector3 vp2 = p - v2;
+            c = edge2.Cross(vp2);
+            double v = n.Dot(c);
+            if (v < 0) return null;
+            
+            Vector3 rayHitPosition = ray.Origin + t * ray.Direction;
+            RayHit rayHit = new RayHit(rayHitPosition, n.Normalized(), ray.Direction, null, t);
+            return rayHit;
         }
 
         /// <summary>
