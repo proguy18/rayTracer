@@ -72,36 +72,25 @@ namespace RayTracer
         /// <param name="outputImage">Image to store render output</param>
         public void Render(Image outputImage)
         {
-
-            Vector3 cameraPos = new Vector3(0, 0, 0);
-            double fov = 60;
-
-            
+            Camera camera = new Camera(outputImage, options);
             // Loops through each pixel in the resultant image
             for(int h = 0; h < outputImage.Height; h++) {
                 for(int w = 0; w < outputImage.Width; w++) {
-
-                    // Fire rays from each pixel, by converting from pixel notation to world space
-                    double imageAspectRatio = outputImage.Width / (double)outputImage.Height; // assuming width > height 
-                    double Px = (2 * ((w + 0.5) / outputImage.Width) - 1) * Math.Tan(fov / 2 * Math.PI / 180) * imageAspectRatio; 
-                    double Py = (1 - 2 * ((h + 0.5) / outputImage.Height)) * Math.Tan(fov / 2 * Math.PI / 180); 
-                    Vector3 rayDirection = new Vector3(Px, Py, 1) - cameraPos; // note that this just equal to Vector3(Px, Py, 1); 
-                    rayDirection = rayDirection.Normalized(); 
-                    Ray cameraRay = new Ray(cameraPos, rayDirection);
-
-                    // Obtains the closest object that intersects the ray
-                    RayHit closestRayHit = GetClosestEntity(cameraRay);
                     Color finalColour = Color.Black;
-
-                    if(closestRayHit != null)
-                        finalColour = closestRayHit.ClosestEntity.Material.GetLighting(closestRayHit, this, 0);
+                    for(int sampleIndex = 0; sampleIndex < camera.NumberOfSamples; sampleIndex++) {
+                        Ray cameraRay = camera.CreateRay(w, h, sampleIndex);
                         
+                        // Obtains the closest object that intersects the ray
+                        RayHit closestRayHit = GetClosestEntity(cameraRay);
+                        if(closestRayHit != null)
+                            finalColour += closestRayHit.ClosestEntity.Material.GetLighting(closestRayHit, this, 0);     
+                    }
+
                     // Renders the pixel colour
-                    outputImage.SetPixel(w, h, finalColour.Clamp()); 
+                    finalColour /= camera.NumberOfSamples;
+                    outputImage.SetPixel(w, h, finalColour.Clamp());   
                 }
             }
         }
-
-
     }
 }
