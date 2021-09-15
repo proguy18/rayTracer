@@ -11,7 +11,7 @@ namespace RayTracer
     {
         private SceneOptions options;
         private ISet<SceneEntity> entities;
-        private ISet<PointLight> lights;
+        public ISet<PointLight> Lights { get; }
 
         /// <summary>
         /// Construct a new scene with provided options.
@@ -21,7 +21,7 @@ namespace RayTracer
         {
             this.options = options;
             this.entities = new HashSet<SceneEntity>();
-            this.lights = new HashSet<PointLight>();
+            this.Lights = new HashSet<PointLight>();
         }
 
         /// <summary>
@@ -39,8 +39,34 @@ namespace RayTracer
         /// <param name="light">Light structure</param>
         public void AddPointLight(PointLight light)
         {
-            this.lights.Add(light);
+            this.Lights.Add(light);
         }
+
+        /// <summary>
+        /// Hits the closest entity, returns the closest entity that has been hit by a ray
+        /// </summary>
+        /// <param name="closestEntity"></param>
+        public RayHit GetClosestEntity(Ray ray)
+        {
+            double closestDistance = double.MaxValue;
+            SceneEntity closestEntity = null;
+            RayHit closestHit = null;
+            foreach(SceneEntity entity in this.entities) {
+                RayHit hit = entity.Intersect(ray);
+                if (hit != null) {
+                    double distance = (hit.Position - ray.Origin).LengthSq();
+                    if(closestDistance > distance) {
+                        closestDistance = distance;
+                        closestEntity = entity;
+                        closestHit = hit;
+                        closestHit.ClosestEntity = closestEntity;
+                    }
+                }
+            }
+
+            return closestHit;
+        }
+
 
         /// </summary>
         /// <param name="outputImage">Image to store render output</param>
@@ -54,80 +80,24 @@ namespace RayTracer
             // Loops through each pixel in the resultant image
             for(int h = 0; h < outputImage.Height; h++) {
                 for(int w = 0; w < outputImage.Width; w++) {
-                    bool isShadow = false;
+
                     // Fire rays from each pixel, by converting from pixel notation to world space
                     double imageAspectRatio = outputImage.Width / (double)outputImage.Height; // assuming width > height 
                     double Px = (2 * ((w + 0.5) / outputImage.Width) - 1) * Math.Tan(fov / 2 * Math.PI / 180) * imageAspectRatio; 
                     double Py = (1 - 2 * ((h + 0.5) / outputImage.Height)) * Math.Tan(fov / 2 * Math.PI / 180); 
                     Vector3 rayDirection = new Vector3(Px, Py, 1) - cameraPos; // note that this just equal to Vector3(Px, Py, 1); 
-                    rayDirection = rayDirection.Normalized(); // it's a direction so don't forget to normalize 
-                    Ray primaryRay = new Ray(cameraPos, rayDirection);
+                    rayDirection = rayDirection.Normalized(); 
+                    Ray cameraRay = new Ray(cameraPos, rayDirection);
 
-                    foreach (SceneEntity entity in this.entities) {
-                        SceneEntity closestEntity = null;
-                        RayHit hit = entity.Intersect(primaryRay);
-                        // There is an intersection
-                        if (hit != null)
-                        {
-                            Vector3 closestPos = entity.Intersect(primaryRay).Position; 
-                            closestEntity = entity;
-                            // Finds which object is closer to the camera visual studio 2017 or 2019
-                            foreach (SceneEntity entityTie in this.entities) {
-                                RayHit tie = entityTie.Intersect(primaryRay);
+                    // Obtains the closest object that intersects the ray
+                    RayHit closestRayHit = GetClosestEntity(cameraRay);
+                    Color finalColour = Color.Black;
 
-                                // Obtains the closest entity that intersects with the ray
-                                if (tie != null) {
-                                    if(closestPos.Z > tie.Position.Z) 
-                                    {
-                                        closestPos = entityTie.Intersect(primaryRay).Position;
-                                        closestEntity = entityTie;
-                                        // break;
-                                    }
-                                }
-         
-                            }
-                            
-                            // Renders the closest object
-                            RayHit intersected = closestEntity.Intersect(primaryRay);
-                            Color finalColour = new Color(0, 0, 0);
-                            if(closestEntity.Material.Type.ToString() == "Diffuse") {
-                                {
-                                    foreach (PointLight pointLight in this.lights) {
-                                        Color colourVector = new Color(0, 0 ,0);
-                                        Vector3 l = (pointLight.Position - intersected.Position).Normalized();
-                                        Vector3 n = intersected.Normal;
-                                        Vector3 offset = 0.05*l;
-                                        Ray shadow = new Ray(intersected.Position + offset, l);
-
-                                        colourVector = (closestEntity.Material.Color * pointLight.Color) * Math.Abs(n.Dot(l));
-                                        // Checks if the shadow ray intersects other objects
-                                        foreach (SceneEntity blockingEntity in this.entities) {
-                                            if(blockingEntity != closestEntity) {
-                                                if(blockingEntity.Intersect(shadow) != null) {
-                                                    if(blockingEntity.Intersect(shadow).Time < (pointLight.Position - intersected.Position).Length()) {
-                                                        isShadow = true;
-                                                        // Console.WriteLine("shadow point " + h.ToString() + ", " + w.ToString());
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                            
-                                        }
-                                        if(isShadow) {
-                                            finalColour = new Color(0,0,0);
-                                            break;
-                                        }
-                                        else {
-                                            finalColour += colourVector;
-                                            
-                                        }
-                                    }   
-                                }
-                            }
-                            outputImage.SetPixel(w, h, finalColour);
-                            // break;
-                        }
-                    }
+                    if(closestRayHit != null)
+                        finalColour = closestRayHit.ClosestEntity.Material.GetLighting(closestRayHit, this, 0);
+                        
+                    // Renders the pixel colour
+                    outputImage.SetPixel(w, h, finalColour.Clamp()); 
                 }
             }
         }
