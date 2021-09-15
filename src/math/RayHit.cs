@@ -12,6 +12,7 @@ namespace RayTracer
         private Vector3 normal;
         private Vector3 incident;
         private double time;
+        public SceneEntity ClosestEntity;
 
         public RayHit(Vector3 position, Vector3 normal, Vector3 incident, Material material, double time)
         {
@@ -31,5 +32,6 @@ namespace RayTracer
         public Vector3 Incident { get { return this.incident; } }
 
         public double Time { get { return this.time; } }
+
     }
 }
