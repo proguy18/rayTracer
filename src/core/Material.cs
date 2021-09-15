@@ -23,7 +23,7 @@ namespace RayTracer
 
         private MaterialType type;
         private Color color;
-        private double refractiveIndex;
+        protected double refractiveIndex;
 
         /// <summary>
         /// Construct a new material object.
@@ -36,6 +36,23 @@ namespace RayTracer
             this.type = type;
             this.color = color;
             this.refractiveIndex = refractiveIndex;
+        }
+
+        public static Material Create(MaterialType type, Color color, double refractiveIndex = 1)
+        {
+            if (type == MaterialType.Diffuse)
+                return new Diffuse(color);
+            if (type == MaterialType.Reflective)
+                return new Reflective();
+            if (type == MaterialType.Refractive)
+                return new Refractive(refractiveIndex);
+
+            return new Material(type, color, refractiveIndex);
+        }
+
+        public virtual Color GetLighting(RayHit closestRayHit, Scene scene, int recursionDepth)
+        {
+            return Color.Black;
         }
 
         /// <summary>

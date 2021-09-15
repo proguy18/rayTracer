@@ -285,7 +285,8 @@ namespace RayTracer
             }
             this.materials.Add(
                 identifier,
-                new Material(line.ReadEnum<Material.MaterialType>(), line.ReadColor(), line.ReadDouble())
+                Material.Create(line.ReadEnum<Material.MaterialType>(), line.ReadColor(), line.ReadDouble())
+                /*new Material(line.ReadEnum<Material.MaterialType>(), line.ReadColor(), line.ReadDouble())*/
             );
         }
 
