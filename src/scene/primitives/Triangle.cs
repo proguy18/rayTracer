@@ -30,42 +30,6 @@ namespace RayTracer
         /// </summary>
         /// <param name="ray">Ray to check</param>
         /// <returns>Hit data (or null if no intersection)</returns>
-        // public RayHit Intersect(Ray ray)
-        // {
-        //     // Write your code here...
-
-        //     // Obtain variables for the plane which the triangle resides in
-        //     Vector3 side0 = v1 - v0;
-        //     Vector3 side1 = v2 - v0;
-
-        //     // Normal of the plane
-        //     Vector3 normal = side0.Cross(side1);
-
-        //     double det = -ray.Direction.Dot(normal);
-        //     double invdet = 1.0/det;
-        //     Vector3 AO  = ray.Origin - v0;
-        //     Vector3 DAO = AO.Cross(ray.Direction);
-        //     double u =  side1.Dot(DAO) * invdet;
-        //     double v = -(side0.Dot(DAO)) * invdet;
-        //     double t =  AO.Dot(normal)  * invdet; 
-        //     if(Math.Abs(det) >= double.Epsilon && t > 0.0 && u >= 0.0 && v >= 0.0 && (u+v) <= 1.0) {
-
-        //         Vector3 intersection = ray.Origin + (ray.Direction * t);
-
-        //         // Calculate the normal to the point of intersection
-        //         Vector3 normalHit = (intersection + normal).Normalized();
-
-        //         // Calculates the incident ray
-        //         //Vector3 incidentRay = ray.Origin + ray.Direction;
-        //         Vector3 incidentRay = ray.Direction;
-
-
-        //         return new RayHit(intersection, normalHit, incidentRay, material, t);
-                
-        //     }
-        //     return null;
-        // }
-
         public RayHit Intersect(Ray ray)
         {
             Vector3 v0v1 = v1 - v0;
@@ -100,7 +64,7 @@ namespace RayTracer
             if (v < 0) return null;
             
             Vector3 rayHitPosition = ray.Origin + t * ray.Direction;
-            RayHit rayHit = new RayHit(rayHitPosition, n.Normalized(), ray.Direction, null, t);
+            RayHit rayHit = new RayHit(rayHitPosition, n.Normalized(), ray.Direction, null);
             return rayHit;
         }
 

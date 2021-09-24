@@ -1,1 +1,42 @@
+Material "SkyMat" Diffuse(0.5, 0.8, 0.8) 1
+Material "WhiteMat" Diffuse (1,1,1) 1
+Material "RedMat" Diffuse (1, .5, .5) 1
+Material "GreenMat" Diffuse (.5, 1, .5) 1
+Material "BlueMat" Diffuse (.5, .5, 1) 1
+Material "PurpleMat" Diffuse (1, 0, 1) 1
+Material "CyanMat" Diffuse (0, 1, 1) 1
+Material "YellowMat" Diffuse (1, 1, 0) 1
+
+Material "GlassMat" Refractive (1, 1, 1) 1.4
+Material "MirrorMat" Reflective (1, 1, 1) 1
+
+PointLight "Light1" (0, 0.8, 1.5) (0.8, 0.8, 0.8)
+PointLight "Light2" (2, 0, 0) (.5, .5, .5)
+
+Sphere "RedSphere" (0.53, -0.88, 2) 0.1 "RedMat"
+Sphere "GreenSphere" (-0.67, -0.88, 2) 0.1 "GreenMat"
+Sphere "GreenSphere2" (-2, -0.88, 7) 0.1 "GreenMat"
+Sphere "GreenSphere3" (-1.5, -0.88, 9) 0.1 "GreenMat"
+Sphere "BlueSphere1" (0.9, -0.88, 2) 0.1 "BlueMat"
+Sphere "BlueSphere2" (-0.89, -0.88, 8) 0.1 "BlueMat"
+Sphere "PurpleSphere1" (0.19, -0.88, 2) 0.1 "PurpleMat"
+Sphere "PurpleSphere2" (-1, -0.88, 6) 0.1 "PurpleMat"
+Sphere "CyanSphere1" (0.36, -0.88, 2.8) 0.1 "CyanMat"
+Sphere "YellowSphere1" (-0.24, -0.88, 3.2) 0.1 "YellowMat"
+Sphere "YellowSphere2" (0.98, -0.88, -0.31) 0.1 "YellowMat"
+
+Sphere "GlassSphere1" (-0.89, -0.88, 5) 0.1 "GlassMat"
+Sphere "GlassSphere2" (-2, -0.88, 1) 0.1 "GlassMat"
+Sphere "GlassSphere3" (0.5, -0.4, 5) 0.6 "GlassMat"
+Sphere "MirrorSphere1" (0.23, -0.88, 3) 0.1 "MirrorMat"
+Sphere "MirrorSphere2" (1.1, -0.4, 3.5) 0.6 "MirrorMat"
+
+Plane "Floor" (0, -1, 0) (0, 1, 0) "WhiteMat"
+Plane "Roof" (0, 500, 0) (0, -1, -0.1) "SkyMat"
+
+Plane "LeftWallA" (-100, 0, 0) (1, 0, 0) "RedMat"
+Plane "RightWallA" (100, 0, 0) (-1, 0, 0) "BlueMat"
+
+
+
 
